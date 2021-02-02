@@ -1,4 +1,4 @@
-# bwa_foodmarket
+# Project Online Course BWA FoodMarket
 
 A new Flutter project.
 
