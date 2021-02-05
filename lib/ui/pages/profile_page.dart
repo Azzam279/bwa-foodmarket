@@ -87,7 +87,8 @@ class _ProfilePageState extends State<ProfilePage> {
                               'Edit Profile',
                               'Home Address',
                               'Security',
-                              'Payment'
+                              'Payment',
+                              'Logout'
                             ]
                           : [
                               'Rate App',
@@ -103,7 +104,17 @@ class _ProfilePageState extends State<ProfilePage> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(e, style: blackFontStyle3),
+                                (e != 'Logout')
+                                    ? Text(e, style: blackFontStyle3)
+                                    : GestureDetector(
+                                        onTap: () async {
+                                          await context
+                                              .read<UserCubit>()
+                                              .signOut();
+                                          Get.offAll(SignInPage());
+                                        },
+                                        child: Text(e, style: blackFontStyle3),
+                                      ),
                                 SizedBox(
                                   height: 24,
                                   width: 24,

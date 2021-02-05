@@ -36,8 +36,20 @@ class UserCubit extends Cubit<UserState> {
         await UserServices.uploadProfilePicture(pictureFile);
 
     if (result.value != null) {
-      emit(UserLoaded(
-          (state as UserLoaded).user.copyWith(picturePath: "http://192.168.100.19/bwa-foodmarket-backend/public/storage/" + result.value)));
+      emit(UserLoaded((state as UserLoaded).user.copyWith(
+          picturePath:
+              "http://192.168.100.19/bwa-foodmarket-backend/public/storage/" +
+                  result.value)));
+    }
+  }
+
+  Future<void> signOut() async {
+    ApiReturnValue<bool> result = await UserServices.signOut();
+
+    if (result.value != null) {
+      return true;
+    } else {
+      emit(UserLoadingFailed(result.message));
     }
   }
 }
